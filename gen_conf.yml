@@ -142,7 +142,7 @@
       client9_public_key: "{{ key_files.results[17].stdout }}"                                                           
       server_1_private_key: "{{ key_files.results[18].stdout }}"
       server_1_public_key: "{{ key_files.results[19].stdout }}"
-      server_2_private_key: "{{ key_files.results[20]].stdout }}"
+      server_2_private_key: "{{ key_files.results[20].stdout }}"
       server_2_public_key: "{{ key_files.results[21].stdout }}"
       server_3_private_key: "{{ key_files.results[22].stdout }}"
       server_3_public_key: "{{ key_files.results[23].stdout }}"
