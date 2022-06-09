@@ -1,1 +1,3 @@
-   wget https://raw.githubusercontent.com/it-toppp/doublevpn/master/1.sh && chmod +x 1.sh && ./1.sh
+# USAGE:
+    ansible-playbook gen_conf.yml
+    ansible-playbook main.yml

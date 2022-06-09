@@ -11,18 +11,6 @@
     srv2_ip:
     srv3_pas:
     srv3_ip:
-    srv4_pas:
-    srv4_ip:
-    srv5_pas:
-    srv5_ip:
-    srv6_pas:
-    srv6_ip:
-    srv7_pas:
-    srv7_ip:
-    srv8_pas:
-    srv8_ip:
-    srv9_pas:
-    srv9_ip:
 
   vars_prompt:
 
@@ -80,102 +68,6 @@
      srv3_pas: "{{ pas3.user_input }}"
     when: srv_numbers|int >= 3
 
-  - name: srv4 ip
-    pause:
-      prompt: "Enter IP address of the server №4"
-    register: ip4
-    when: srv_numbers|int >= 4
-  - name: srv4 pas
-    pause:
-      prompt: "Enter the password from the server №4"
-    register: pas4
-    when: srv_numbers|int >= 4
-  - name: srv4
-    set_fact:
-     srv4_ip: "{{ ip4.user_input }}"
-     srv4_pas: "{{ pas4.user_input }}"
-    when: srv_numbers|int >= 4
-
-  - name: srv5 ip
-    pause:
-      prompt: "Enter IP address of the server №5"
-    register: ip5
-    when: srv_numbers|int >= 5
-  - name: srv5 pas
-    pause:
-      prompt: "Enter the password from the server №5"
-    register: pas5
-    when: srv_numbers|int >= 5
-  - name: srv5
-    set_fact:
-     srv5_ip: "{{ ip5.user_input }}"
-     srv5_pas: "{{ pas5.user_input }}"
-    when: srv_numbers|int >= 5
-
-  - name: srv6 ip
-    pause:
-      prompt: "Enter IP address of the server №6"
-    register: ip6
-    when: srv_numbers|int >= 6
-  - name: srv6 pas
-    pause:
-      prompt: "Enter the password from the server №6"
-    register: pas6
-    when: srv_numbers|int >= 6
-  - name: srv6
-    set_fact:
-     srv6_ip: "{{ ip6.user_input }}"
-     srv6_pas: "{{ pas6.user_input }}"
-    when: srv_numbers|int >= 6
-
-  - name: srv7 ip
-    pause:
-      prompt: "Enter IP address of the server №7"
-    register: ip7
-    when: srv_numbers|int >= 7
-  - name: srv7pas
-    pause:
-      prompt: "Enter the password from the server №7"
-    register: pas7
-    when: srv_numbers|int >= 7
-  - name: srv7
-    set_fact:
-     srv7_ip: "{{ ip7.user_input }}"
-     srv7_pas: "{{ pas7.user_input }}"
-    when: srv_numbers|int >= 7
-
-  - name: srv8 ip
-    pause:
-      prompt: "Enter IP address of the server №8"
-    register: ip8
-    when: srv_numbers|int >= 8
-  - name: srv8 pas
-    pause:
-      prompt: "Enter the password from the server №8"
-    register: pas8
-    when: srv_numbers|int >= 8
-  - name: srv8
-    set_fact:
-     srv8_ip: "{{ ip8.user_input }}"
-     srv8_pas: "{{ pas8.user_input }}"
-    when: srv_numbers|int >= 8
-
-  - name: srv9 ip
-    pause:
-      prompt: "Enter IP address of the server №9"
-    register: ip9
-    when: srv_numbers|int >= 9
-  - name: srv9 pas
-    pause:
-      prompt: "Enter the password from the server №9"
-    register: pas9
-    when: srv_numbers|int >= 9
-  - name: srv9
-    set_fact:
-     srv9_ip: "{{ ip9.user_input }}"
-     srv9_pas: "{{ pas9.user_input }}"
-    when: srv_numbers|int >= 9
-
 #  - name: Add the WireGuard PPA
 #    apt_repository:
 #      repo: 'ppa:wireguard/wireguard'
@@ -186,65 +78,74 @@
   - name: Generate private and public keys for the client and server
     shell: umask 077; wg genkey | tee {{ item.private }} | wg pubkey > {{ item.public }}
     loop:
-      - { private: client_private_key, public: client_public_key }
+      - { private: client1_private_key, public: client1_public_key }
+      - { private: client2_private_key, public: client2_public_key }
+      - { private: client3_private_key, public: client3_public_key }
+      - { private: client4_private_key, public: client4_public_key }
+      - { private: client5_private_key, public: client5_public_key }
+      - { private: client6_private_key, public: client6_public_key }
+      - { private: client7_private_key, public: client7_public_key }
+      - { private: client8_private_key, public: client8_public_key }
+      - { private: client9_private_key, public: client9_public_key }                         
       - { private: server_1_private_key, public: server_1_public_key }
       - { private: server_2_private_key, public: server_2_public_key }
       - { private: server_3_private_key, public: server_3_public_key }
-      - { private: server_4_private_key, public: server_4_public_key }
-      - { private: server_5_private_key, public: server_5_public_key }
-      - { private: server_6_private_key, public: server_6_public_key }
-      - { private: server_7_private_key, public: server_7_public_key }
-      - { private: server_8_private_key, public: server_8_public_key }
-      - { private: server_9_private_key, public: server_9_public_key }
 
   - name: Register the key file contents
     command: cat {{ item }}
     register: key_files
     loop:
-      - client_private_key
-      - client_public_key
+      - client1_private_key
+      - client1_public_key
+      - client2_private_key
+      - client2_public_key
+      - client3_private_key
+      - client3_public_key
+      - client4_private_key
+      - client4_public_key 
+      - client5_private_key
+      - client5_public_key
+      - client6_private_key
+      - client6_public_key
+      - client7_private_key
+      - client7_public_key
+      - client8_private_key
+      - client8_public_key 
+      - client9_private_key
+      - client9_public_key                      
       - server_1_private_key
       - server_1_public_key
       - server_2_private_key
       - server_2_public_key
       - server_3_private_key
       - server_3_public_key
-      - server_4_private_key
-      - server_4_public_key
-      - server_5_private_key
-      - server_5_public_key
-      - server_6_private_key
-      - server_6_public_key
-      - server_7_private_key
-      - server_7_public_key
-      - server_8_private_key
-      - server_8_public_key
-      - server_9_private_key
-      - server_9_public_key
 
   - name: Assign the keys to their variables
     set_fact:
-      client_private_key: "{{ key_files.results[0].stdout }}"
-      client_public_key: "{{ key_files.results[1].stdout }}"
-      server_1_private_key: "{{ key_files.results[2].stdout }}"
-      server_1_public_key: "{{ key_files.results[3].stdout }}"
-      server_2_private_key: "{{ key_files.results[4].stdout }}"
-      server_2_public_key: "{{ key_files.results[5].stdout }}"
-      server_3_private_key: "{{ key_files.results[6].stdout }}"
-      server_3_public_key: "{{ key_files.results[7].stdout }}"
-      server_4_private_key: "{{ key_files.results[8].stdout }}"
-      server_4_public_key: "{{ key_files.results[9].stdout }}"
-      server_5_private_key: "{{ key_files.results[10].stdout }}"
-      server_5_public_key: "{{ key_files.results[11].stdout }}"
-      server_6_private_key: "{{ key_files.results[12].stdout }}"
-      server_6_public_key: "{{ key_files.results[13].stdout }}"
-      server_7_private_key: "{{ key_files.results[14].stdout }}"
-      server_7_public_key: "{{ key_files.results[15].stdout }}"
-      server_8_private_key: "{{ key_files.results[16].stdout }}"
-      server_8_public_key: "{{ key_files.results[17].stdout }}"
-      server_9_private_key: "{{ key_files.results[18].stdout }}"
-      server_9_public_key: "{{ key_files.results[19].stdout }}"
-
+      client1_private_key: "{{ key_files.results[0].stdout }}"
+      client1_public_key: "{{ key_files.results[1].stdout }}"
+      client2_private_key: "{{ key_files.results[2].stdout }}"
+      client2_public_key: "{{ key_files.results[3].stdout }}"
+      client3_private_key: "{{ key_files.results[4].stdout }}"
+      client3_public_key: "{{ key_files.results[5].stdout }}"
+      client4_private_key: "{{ key_files.results[6].stdout }}"
+      client4_public_key: "{{ key_files.results[7].stdout }}"
+      client5_private_key: "{{ key_files.results[8].stdout }}"
+      client5_public_key: "{{ key_files.results[9].stdout }}"
+      client6_private_key: "{{ key_files.results[10].stdout }}"
+      client6_public_key: "{{ key_files.results[11].stdout }}"
+      client7_private_key: "{{ key_files.results[12].stdout }}"
+      client7_public_key: "{{ key_files.results[13].stdout }}"
+      client8_private_key: "{{ key_files.results[14].stdout }}"
+      client8_public_key: "{{ key_files.results[15].stdout }}"
+      client9_private_key: "{{ key_files.results[16].stdout }}"
+      client9_public_key: "{{ key_files.results[17].stdout }}"                                                           
+      server_1_private_key: "{{ key_files.results[18].stdout }}"
+      server_1_public_key: "{{ key_files.results[19].stdout }}"
+      server_2_private_key: "{{ key_files.results[20]].stdout }}"
+      server_2_public_key: "{{ key_files.results[21].stdout }}"
+      server_3_private_key: "{{ key_files.results[22].stdout }}"
+      server_3_public_key: "{{ key_files.results[23].stdout }}"
 
   - name: Vars
     template:
